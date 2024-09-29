@@ -1,20 +1,7 @@
 from pathlib import Path
-import base64
 import subprocess
 
-
-def sign_svg(svg_image: Path, png_image: Path, title: str = '', signature: str = '', color='808080') -> None:
-    with open(r'photosignature/templates/svg_template.svg', 'r') as svg_template:
-        template_content = svg_template.read()
-
-    with open(png_image, 'rb') as png_file:
-        encoded_string = base64.b64encode(png_file.read()).decode('utf-8')
-
-    with open(svg_image, 'w', encoding='utf-8') as svg_file:
-        svg_file.write(template_content.replace('{{image_data}}', encoded_string)
-                       .replace('{{title}}', title)
-                       .replace('{{signature}}', signature)
-                       .replace('{{color}}', color))
+from photosignature import sign_svg
 
 
 colors = {'DSC_2672': '808080', 'DSC_2674': '808080', 'DSC_2676': 'E0E0E0', 'DSC_2687': 'E0E0E0',
